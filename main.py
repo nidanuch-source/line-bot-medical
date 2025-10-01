@@ -3,8 +3,6 @@ import requests
 import os
 
 app = Flask(__name__)
-
-# อ่าน LINE_TOKEN จาก environment variable
 LINE_TOKEN = os.getenv("LINE_TOKEN")
 
 @app.route('/webhook', methods=['POST', 'GET'])
@@ -37,4 +35,5 @@ def reply_message(reply_token, text):
     requests.post(url, headers=headers, json=data)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
